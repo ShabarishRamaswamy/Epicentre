@@ -36,7 +36,8 @@ const logger = createLogger({
     ]
 });
 
-function loggerlog(msg, lvl){
+
+const loggerlog =(msg, lvl)=>{
 //Log Names
 if(lvl == 0){
     logger.log({
@@ -56,4 +57,4 @@ if(lvl == 0){
 // });
 }
 
-module.exports = loggerlog
+module.exports = loggerlog;

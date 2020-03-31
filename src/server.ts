@@ -14,9 +14,9 @@
  * limitations under the License.
  * =============================================================================
  */
+import loggerlog = require('../logger/logger.js');
 import app from './app';
 import * as http from 'http';
-import { loggerlog } from '../logger/logger';
 
 const port = process.env.PORT || 3000;
 app.set('port', port);
@@ -54,7 +54,7 @@ const onListening = () => {
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-    console.log('Listening on ' + bind);
+    loggerlog('Listening on ' + bind, 0);
 };
 
 /**
