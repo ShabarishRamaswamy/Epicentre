@@ -16,9 +16,9 @@
  */
 import { Request, Response, NextFunction } from 'express';
 import request from 'request';
-import { loggerlog } from '../../logger/logger';
 import syncRequest from 'sync-request';
 import { getJSON, getMessageJSON, getDataJSON } from '../utils/responses';
+import loggerlog = require('../../logger/logger.js');
 
 /**
  * Heroku Constants

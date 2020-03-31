@@ -17,9 +17,8 @@
 import request from 'request';
 import { Request, Response, NextFunction } from 'express';
 import { getJSON } from '../utils/responses';
-import { loggerlog } from '../../logger/logger.js';
 import * as travis from './travis';
-
+import loggerlog = require('../../logger/logger.js');
 const API_URL = 'https://api.github.com';
 
 /**

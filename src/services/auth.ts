@@ -16,10 +16,10 @@
  */
 import { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
-import  { loggerlog }  from '../../logger/logger';
 import path from 'path';
 import { getDataJSON, getMessageJSON } from '../utils/responses';
 import * as jwt from 'jsonwebtoken';
+import loggerlog = require('../../logger/logger.js');
 
 /**
  * Note: Token is generated using JSON Web Tokens

@@ -16,8 +16,7 @@
  */
 import * as firebaseAdmin from 'firebase-admin';
 import path from 'path';
-import { loggerlog } from '../../logger/logger';
-
+import loggerlog = require('../../logger/logger.js');
 /**
  * Initialize Firebase Admin for current application
  */

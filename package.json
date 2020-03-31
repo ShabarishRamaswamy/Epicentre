@@ -9,8 +9,12 @@
     "build": "tsc && npm run lint",
     "serve": "nodemon dist/server.js",
     "lint": "tslint --project .",
+<<<<<<< HEAD
     "fix": "tslint --project . --fix",
     "testlog": "node logger/logger.js"
+=======
+    "fix": "tslint --project . --fix"
+>>>>>>> e999f73e4e0db69095ab2a6a2429f94d3e7c6154
   },
   "engines": {
     "node": ">=8.0.0"
@@ -37,9 +41,13 @@
     "morgan": "^1.9.1",
     "request": "^2.88.0",
     "sync-request": "^6.0.0",
+<<<<<<< HEAD
     "tslint": "^5.11.0",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
+=======
+    "tslint": "^5.11.0"
+>>>>>>> e999f73e4e0db69095ab2a6a2429f94d3e7c6154
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.0",

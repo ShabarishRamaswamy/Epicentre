@@ -17,8 +17,7 @@
 import request from  'request';
 import { Request, Response, NextFunction } from 'express';
 import { getJSON, getDataJSON, getMessageJSON } from '../utils/responses';
-import { loggerlog } from '../../logger/logger';
-
+import loggerlog = require('../../logger/logger.js');
 /**
  * Travis Constants
  */

@@ -19,7 +19,7 @@ import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
-import { loggerlog } from '../logger/logger';
+import loggerlog = require('../logger/logger.js');
 dotenv.config({ path: '.env' });
 
 /**
