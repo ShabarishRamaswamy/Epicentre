@@ -1,7 +1,7 @@
 //Importing Libraries
 const { createLogger, format, transports } = require('winston');
 const { timestamp } = format;
-//const { uploadFile } = require('../src/backup.ts')
+const  uploadFile = import('../src/backup.ts')
 require('winston-daily-rotate-file')
 const fs = require('fs')
 require('winston-daily-rotate-file');
@@ -9,14 +9,25 @@ const path = require('path');
 
 //var fileName = require('.env.example')
 var fileName = process.env.fileNames || 'test.js'
-//continuousBackup()
+var logfilelocation,  dailylogfilelocation
+continuousBackup()
 
 //Creating Logging directory if not present
 if (!fs.existsSync('logger/logs')) {
     fs.mkdirSync('logger/logs');
 }
 
-var backupFrequency = 86400000; // expressed in miliseconds
+fs.readdir('logger/logs/', (err, files)=>{
+    files.forEach((file)=>{
+        if (file == 'fileslogger.log'){
+            logfilelocation = 'logger/log/' + file
+        }else{
+            dailylogfilelocation = 'logger/log/'+file
+        }
+    })
+})
+
+var backupFrequency = 43200000; // 12 hours expressed in miliseconds
 var myInterval = 0;
 
 
@@ -68,9 +79,10 @@ if(lvl == 0){
 }
 
 // Adding Backup to logs
-// function continuousBackup() {
-//     myInterval = setInterval( uploadFile(fileNames), backupFrequency );  // run
-//     myInterval1 = setInterval(loggerlog(`All files : ${fileNames} have been logged`, 0), backupFrequency)
-// }
+function continuousBackup() {
+    myInterval = setInterval(uploadFile(logfilelocation), backupFrequency );  // run
+    myInterval1 = setInterval( uploadFile(dailylogfilelocation), backupFrequency );
+    myInterval2 = setInterval(loggerlog(`All files : ${logfileNames} have been logged`, 0), backupFrequency)
+}
 
 module.exports = loggerlog;

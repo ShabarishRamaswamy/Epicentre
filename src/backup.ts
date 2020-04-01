@@ -49,7 +49,7 @@ async function uploadFile (fileName: string) {
     destination: date + '/' + fileName,
     public: true
   }).then((file) => {
-    loggerlog(fileName + ' uploaded successfully', 0);
+    loggerlog(file + ' uploaded successfully', 0);
   }).catch((err) => {
     loggerlog(err, 1);
   });
