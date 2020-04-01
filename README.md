@@ -28,7 +28,7 @@ Read the [Contributing Guidelines](CONTRIBUTING.md) to know how easy it is to co
  - **Heroku**
 	* Generate a *Heroku Token* from account settings page or create a new one from CLI [(Reference)](https://devcenter.heroku.com/articles/platform-api-quickstart#authentication)
 ### Setting Up Security Keys For Authentication 
-* Copy this file and update the configurations in your new .env file
+* Copy the .env.example file and rename it to .env, after that update the configurations in your new .env file.
 * Update the new .env with your data for the project
 * Create a **Firebase Project** and make sure you have following things set up:
 	* Enable Public Read/Write for your Firebase Storage [(Reference)](https://firebase.google.com/docs/storage/security/start)

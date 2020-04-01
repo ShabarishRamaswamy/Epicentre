@@ -84,3 +84,5 @@ backup.on('exit', () => {
     uploadFile(file);
   });
 });
+
+export { uploadFile }
