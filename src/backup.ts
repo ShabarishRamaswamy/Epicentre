@@ -41,7 +41,7 @@ const date = new Date();
  * Individually upload all the files to Firebase Storage
  * @param {string} fileName
  */
-async function uploadFile (fileName: string) {
+const uploadFile = async function uploadFile (fileName: string) {
   /**
    * Upload individual files to storage and wait for the process to finish
    */
@@ -55,9 +55,6 @@ async function uploadFile (fileName: string) {
   });
 }
 
-async function uploadLogFile (filename){
-  const completed = await uploadFile(filename)
-}
 
 /**
  * Start mongodump
@@ -89,4 +86,4 @@ backup.on('exit', () => {
   });
 });
 
-module.exports = uploadLogFile;
+module.exports = uploadFile;

@@ -2,7 +2,7 @@
 const { createLogger, format, transports } = require('winston');
 const path = require('path');
 const { timestamp } = format;
-const { uploadlogFile } = import('../src/backup.ts');
+const { uploadFile } = import('../src/backup.ts');
 require('winston-daily-rotate-file');
 const fs = require('fs');
 require('winston-daily-rotate-file');
@@ -81,8 +81,8 @@ if(lvl == 0){
 // Adding Backup to logs
 async function continuousBackup() {
     myInterval = setInterval(()=>{
-        await uploadlogFile(logfilelocation),
-        await uploadlogFile(dailylogfilelocation),
+        uploadFile(logfilelocation),
+        uploadFile(dailylogfilelocation),
         loggerlog(`All files : ${logfileNames} have been logged`, 0)
     }, backupFrequency );  // run
 }
