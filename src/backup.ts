@@ -41,7 +41,7 @@ const date = new Date();
  * Individually upload all the files to Firebase Storage
  * @param {string} fileName
  */
-const uploadFile = async function uploadFile (fileName: string) {
+const uploadFile = async(fileName: string) => {
   /**
    * Upload individual files to storage and wait for the process to finish
    */
@@ -86,4 +86,4 @@ backup.on('exit', () => {
   });
 });
 
-module.exports = uploadFile;
+module.exports = { uploadFile };
