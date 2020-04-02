@@ -55,6 +55,10 @@ async function uploadFile (fileName: string) {
   });
 }
 
+async function uploadLogFile (filename){
+  const completed = await uploadFile(filename)
+}
+
 /**
  * Start mongodump
  * Reference: https://docs.mongodb.com/manual/reference/program/mongodump/
@@ -85,4 +89,4 @@ backup.on('exit', () => {
   });
 });
 
-export{ uploadFile }
+module.exports = uploadLogFile;
