@@ -19,7 +19,8 @@ import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
-import loggerlog = require('../logger/logger.js');
+import {log} from './logger';
+
 dotenv.config({ path: '.env' });
 
 /**
@@ -41,7 +42,7 @@ const date = new Date();
  * Individually upload all the files to Firebase Storage
  * @param {string} fileName
  */
-const uploadFile = async(fileName: string) => {
+const uploadFile = async (fileName: string) => {
   /**
    * Upload individual files to storage and wait for the process to finish
    */
@@ -49,9 +50,9 @@ const uploadFile = async(fileName: string) => {
     destination: date + '/' + fileName,
     public: true
   }).then((file) => {
-    loggerlog(file + ' uploaded successfully', 0);
+    log('info',file + ' uploaded successfully');
   }).catch((err) => {
-    loggerlog(err, 1);
+    log('error',err);
   });
 }
 
@@ -60,7 +61,7 @@ const uploadFile = async(fileName: string) => {
  * Start mongodump
  * Reference: https://docs.mongodb.com/manual/reference/program/mongodump/
  */
-loggerlog('Starting MongoDB Dump...', 0);
+log('info','Starting MongoDB Dump...');
 
 /**
  * This will run a process of mongodump with details provided for MongoDB
@@ -73,11 +74,11 @@ const backup = spawn('mongodump',
     '--authenticationDatabase', 'admin', '-u', process.env.MONGO_USERNAME, '-p', process.env.MONGO_PASSWORD]);
 backup.stderr.on('data', (data) => {
     console.log(data.toString());
-    loggerlog.log(data.toString(), 0);
+    log('info',data.toString());
 });
 backup.on('exit', () => {
-  loggerlog('Finished MongoDB Dump...', 0);
-  loggerlog('Starting Remote Backup...', 0);
+  log('info','Finished MongoDB Dump...');
+  log('info','Starting Remote Backup...');
   /**
    * Start uploading dumped files to remote storage
    */
@@ -86,4 +87,4 @@ backup.on('exit', () => {
   });
 });
 
-exports.default = uploadFile;
+export default uploadFile;

@@ -18,7 +18,7 @@ import request from 'request';
 import { Request, Response, NextFunction } from 'express';
 import { getJSON } from '../utils/responses';
 import * as travis from './travis';
-import loggerlog = require('../../logger/logger.js');
+import { log } from '../logger';
 const API_URL = 'https://api.github.com';
 
 /**
@@ -51,10 +51,10 @@ export const createWebhook = (token: string, owner: string, repo: string) => {
   };
   request.post(options, (error, response, body) => {
     if (error) {
-      loggerlog('Error creating GitHub webhook', 1);
-      loggerlog(error, 1);
+      log('error','Error creating GitHub webhook');
+      log('error', error);
     } else {
-      loggerlog('Successfully created GitHub webhook', 0);
+      log('info','Successfully created GitHub webhook');
     }
   });
 };

@@ -17,7 +17,7 @@
 import request from  'request';
 import { Request, Response, NextFunction } from 'express';
 import { getJSON, getDataJSON, getMessageJSON } from '../utils/responses';
-import loggerlog = require('../../logger/logger.js');
+import { log } from '../logger';
 /**
  * Travis Constants
  */
@@ -57,9 +57,9 @@ export const disablePushBuilds = (token: string, owner: string, repo: string) =>
   };
   request.patch(options, (error, response, body) => {
     if (error) {
-      loggerlog('Error in updating Travis CI Setting : ' + error, 1);
+      log('error','Error in updating Travis CI Setting : ' + error);
     } else {
-      loggerlog('Successfully updated Travis CI Setting', 0);
+      log('info','Successfully updated Travis CI Setting');
     }
   });
 };
@@ -94,9 +94,9 @@ export const createBuild = (token: string, owner: string, repo: string, branch: 
   };
   request.post(options, (error, response, body) => {
     if (error) {
-      loggerlog('Error in creating Travis CI Build Request : ' + error, 1);
+      log('error','Error in creating Travis CI Build Request : ' + error);
     } else {
-      loggerlog('Successfully created Travis CI Build Request', 0);
+      log('info','Successfully created Travis CI Build Request');
     }
   });
 };
@@ -140,7 +140,7 @@ export const index = (req: Request, res: Response, next: NextFunction) => {
   };
   request.get(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error',error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {
@@ -171,7 +171,7 @@ export const builds = (req: Request, res: Response, next: NextFunction) => {
   };
   request.get(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error',error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {

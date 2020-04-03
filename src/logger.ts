@@ -2,7 +2,8 @@
 const { createLogger, format, transports } = require('winston');
 const path = require('path');
 const { timestamp } = format;
-const uploadFile = import('../src/backup.ts');
+// const uploadFile = require('../src/backup.js');
+import uploadFile from "./backup";
 require('winston-daily-rotate-file');
 const fs = require('fs');
 require('winston-daily-rotate-file');
@@ -11,7 +12,6 @@ require('winston-daily-rotate-file');
 let fileName = process.env.fileNames || 'test.js'
 let logfilelocation,  dailylogfilelocation
 let backupFrequency = 1000; // 12 hours expressed in miliseconds
-let myInterval = 0;
 continuousBackup()
 
 //Creating Logging directory if not present
@@ -57,39 +57,24 @@ const logger = createLogger({
     ]
 });
 
-
-const loggerlog =(msg, lvl)=>{
-// Log Names
-if(lvl == 0){
+function logMessage (level:string,message:any) {
     logger.log({
-        level: process.env.INFO_LEVEL || 'info',
-        message: msg
-    })
-}else if(lvl == 1){
-    logger.log({
-        level: process.env.ERROR_LEVEL || 'error',
-        message: msg
-    })
-}
-// Refrence
-// logger.log({
-//     level: 'info',
-//     message: `${fileName} Has been logged`
-// });
+        level,
+        message: `${message}`
+    });
 }
 
 // Adding Backup to logs
 async function continuousBackup() {
     try{
-    myInterval = setInterval(()=>{
-        uploadFile(logfilelocation),
-        uploadFile(dailylogfilelocation),
-        loggerlog(`All files : ${logfileNames} have been logged`, 0)
-    }, backupFrequency );  // run
-}catch(e){
-    console.log(e)
-}
-    
+        setInterval(()=>{
+            uploadFile(logfilelocation),
+            uploadFile(dailylogfilelocation),
+            logMessage('info',`All files : ${fileName} have been logged`)
+        }, backupFrequency );  // run
+    } catch(e){
+        console.log(e)
+    }
 }
 
-module.exports = loggerlog;
+export {logMessage as log}

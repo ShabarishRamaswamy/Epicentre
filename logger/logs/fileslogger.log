@@ -53,3 +53,6 @@
 {"level":"info","message":"Listening on port 3000","timestamp":"2020-04-02 21:01:26"}
 {"level":"info","message":"Listening on port 3000","timestamp":"2020-04-02 21:01:49"}
 {"level":"info","message":"Listening on port 3000","timestamp":"2020-04-02 21:02:25"}
+{"level":"info","message":"Listening on port 3000","timestamp":"2020-04-03 11:37:53"}
+{"message":"Testing","level":"info","timestamp":"2020-04-03 12:39:17"}
+{"level":"info","message":"test.js Has been logged","timestamp":"2020-04-03 17:13:57"}

@@ -18,7 +18,7 @@ import { Request, Response, NextFunction } from 'express';
 import request from 'request';
 import syncRequest from 'sync-request';
 import { getJSON, getMessageJSON, getDataJSON } from '../utils/responses';
-import loggerlog = require('../../logger/logger.js');
+import { log } from '../logger';
 
 /**
  * Heroku Constants
@@ -65,8 +65,8 @@ const deleteWebhooks = (token: string, appName: string) => {
     };
     request.get(options, (error, response, body) => {
       if (error) {
-        loggerlog('Error getting previous Heroku webhooks', 1);
-        loggerlog(error, 1);
+        log('error','Error getting previous Heroku webhooks');
+        log('error',error);
       } else {
         /**
          * API options
@@ -81,7 +81,7 @@ const deleteWebhooks = (token: string, appName: string) => {
         const bodyJSON = JSON.parse(body);
         let error = false;
         if (bodyJSON.length === 0) {
-          loggerlog('There are no previous Heroku webhooks', 1);
+          log('error','There are no previous Heroku webhooks');
           resolve(true);
         }
         /**
@@ -92,12 +92,12 @@ const deleteWebhooks = (token: string, appName: string) => {
           const res = syncRequest('DELETE', url, optionsEach);
           if (res.statusCode !== 200) {
             error = true;
-            loggerlog('Error deleting a previous Heroku webhook', 1);
+            log('error','Error deleting a previous Heroku webhook');
             resolve(false);
           }
         });
         if (!error) {
-          loggerlog('Successfully deleted all previous Heroku webhooks', 0);
+          log('error','Successfully deleted all previous Heroku webhooks');
           resolve(true);
         }
       }
@@ -140,14 +140,14 @@ export const createWebhook = (token: string, appName: string) => {
       };
       request.post(options, (error, response, body) => {
         if (error) {
-          loggerlog('Error creating Heroku webhook', 1);
-          loggerlog(error, 1);
+          log('error','Error creating Heroku webhook');
+          log('error', error);
         } else {
-          loggerlog('Successfully created Heroku webhook', 1);
+          log('info','Successfully created Heroku webhook');
         }
       });
     } else {
-      loggerlog('Cannot create Heroku webhook due to previous deletion error', 1);
+      log('error','Cannot create Heroku webhook due to previous deletion error');
     }
   });
 };
@@ -204,7 +204,7 @@ export const index = (req: Request, res: Response, next: NextFunction) => {
    */
   request.get(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error', error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {
@@ -222,7 +222,7 @@ export const index = (req: Request, res: Response, next: NextFunction) => {
        */
       request.get(options, (error, response, body) => {
         if (error) {
-          loggerlog(error, 1);
+          log('error', error);
           res.status(500);
           res.json(getMessageJSON(500, 'Some error. Try again'));
         } else {
@@ -249,7 +249,7 @@ export const info = (req: Request, res: Response, next: NextFunction) => {
   };
   request.get(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error', error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {
@@ -271,7 +271,7 @@ export const dynos = (req: Request, res: Response, next: NextFunction) => {
   };
   request.get(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error', error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {
@@ -293,7 +293,7 @@ export const getConfig = (req: Request, res: Response, next: NextFunction) => {
   };
   request.get(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error', error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {
@@ -318,7 +318,7 @@ export const updateConfig = (req: Request, res: Response, next: NextFunction) =>
     };
     request.patch(options, (error, response, body) => {
       if (error) {
-        loggerlog(error, 1);
+        log('error', error);
         res.status(500);
         res.json(getMessageJSON(500, 'Some error. Try again'));
       } else {
@@ -348,7 +348,7 @@ export const setMaintenance = (req: Request, res: Response, next: NextFunction) 
   };
   request.patch(options, (error, response, body) => {
     if (error) {
-      loggerlog(error, 1);
+      log('error', error);
       res.status(500);
       res.json(getMessageJSON(500, 'Some error. Try again'));
     } else {

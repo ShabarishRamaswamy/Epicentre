@@ -19,7 +19,7 @@ import fs from 'fs';
 import path from 'path';
 import { getDataJSON, getMessageJSON } from '../utils/responses';
 import * as jwt from 'jsonwebtoken';
-import loggerlog = require('../../logger/logger.js');
+import { log } from '../logger';
 
 /**
  * Note: Token is generated using JSON Web Tokens
@@ -58,7 +58,7 @@ export const createToken = (req: Request, res: Response, next: NextFunction) => 
        */
       fs.readFile(path.join(__dirname, '../../config/keys/private.key'), 'utf8', (err, privateKey) => {
         if (err) {
-          loggerlog(err, 1);
+          log('error',err);
           res.status(500);
           res.json(getMessageJSON(500, 'Some error. Try again'));
         } else {
@@ -74,7 +74,7 @@ export const createToken = (req: Request, res: Response, next: NextFunction) => 
            // @ts-ignore
           privateKey, TOKEN_OPTIONS, (err, token) => {
             if (err) {
-              loggerlog(err, 1);
+              log('error',err);
               res.status(500);
               res.json(getMessageJSON(500, 'Some error generating token. Try again'));
             } else {
@@ -130,7 +130,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
      */
     fs.readFile(path.join(__dirname, '../../config/keys/public.key'), 'utf8', (err, publicKey) => {
       if (err) {
-        loggerlog(err, 1);
+        log('error',err);
         res.status(500);
         res.json(getMessageJSON(500, 'Some error verifying the token. Try again'));
       } else {

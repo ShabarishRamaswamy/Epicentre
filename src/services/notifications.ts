@@ -16,7 +16,7 @@
  */
 import * as firebaseAdmin from 'firebase-admin';
 import path from 'path';
-import loggerlog = require('../../logger/logger.js');
+import { log } from '../logger';
 /**
  * Initialize Firebase Admin for current application
  */
@@ -60,10 +60,10 @@ module.exports.sendNotification = (title: string, body: string) => {
          */
         firebaseAdmin.messaging().send(message)
           .then((response) => {
-            loggerlog(response, 0);
+            log(response, 0);
           })
           .catch((error) => {
-            loggerlog('Notification Error:' + error, 1);
+            log('error','Notification Error:' + error);
           });
       });
     });
