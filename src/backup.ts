@@ -19,7 +19,7 @@ import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
-import {log} from './logger';
+import * as logger from './logger';
 
 dotenv.config({ path: '.env' });
 
@@ -50,9 +50,9 @@ const uploadFile = async (fileName: string) => {
     destination: date + '/' + fileName,
     public: true
   }).then((file) => {
-    log('info',file + ' uploaded successfully');
+    logger.log('info',file + ' uploaded successfully');
   }).catch((err) => {
-    log('error',err);
+    logger.log('error',err);
   });
 }
 
@@ -61,7 +61,7 @@ const uploadFile = async (fileName: string) => {
  * Start mongodump
  * Reference: https://docs.mongodb.com/manual/reference/program/mongodump/
  */
-log('info','Starting MongoDB Dump...');
+logger.log('info','Starting MongoDB Dump...');
 
 /**
  * This will run a process of mongodump with details provided for MongoDB
@@ -74,11 +74,11 @@ const backup = spawn('mongodump',
     '--authenticationDatabase', 'admin', '-u', process.env.MONGO_USERNAME, '-p', process.env.MONGO_PASSWORD]);
 backup.stderr.on('data', (data) => {
     console.log(data.toString());
-    log('info',data.toString());
+    logger.log('info',data.toString());
 });
 backup.on('exit', () => {
-  log('info','Finished MongoDB Dump...');
-  log('info','Starting Remote Backup...');
+  logger.log('info','Finished MongoDB Dump...');
+  logger.log('info','Starting Remote Backup...');
   /**
    * Start uploading dumped files to remote storage
    */

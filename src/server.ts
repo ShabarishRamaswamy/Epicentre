@@ -14,7 +14,7 @@
  * limitations under the License.
  * =============================================================================
  */
-import { log } from './logger';
+import * as logger from './logger';
 import app from './app';
 import * as http from 'http';
 
@@ -54,7 +54,7 @@ const onListening = () => {
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-    log('info','Listening on ' + bind);
+    logger.log('info','Listening on ' + bind);
 };
 
 /**

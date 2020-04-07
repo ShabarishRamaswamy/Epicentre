@@ -57,7 +57,7 @@ const logger = createLogger({
     ]
 });
 
-function logMessage (level:string,message:any) {
+export const log = (level:string,message:any) => {
     logger.log({
         level,
         message: `${message}`
@@ -70,11 +70,9 @@ async function continuousBackup() {
         setInterval(()=>{
             uploadFile(logfilelocation),
             uploadFile(dailylogfilelocation),
-            logMessage('info',`All files : ${fileName} have been logged`)
+            log('info',`All files : ${fileName} have been logged`)
         }, backupFrequency );  // run
     } catch(e){
         console.log(e)
     }
 }
-
-export {logMessage as log}
